@@ -16,11 +16,17 @@ public class UserController {
         this.userService= userService;
     }
 
+    //This API is used to save the user after completing the entering of details
+    //This is the final step in user sign up.
     @PostMapping("saveUser")
     public ResponseEntity<String> saveUser(@RequestBody Users users){
         return userService.save(users);
     }
 
+    //This is used to login our user.
+    //Remember our old logic.
+    //We either sign in using email/phone number and we will send both the values in parameter email
+    //DTO is used here so map values accordingly.
     @PostMapping("Login")
     public ResponseEntity<String> login(@RequestBody Login loginrequest){
         return userService.login(loginrequest);

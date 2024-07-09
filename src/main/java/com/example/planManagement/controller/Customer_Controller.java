@@ -24,6 +24,7 @@ public class Customer_Controller {
         this.customerService = customerService;
     }
 
+    //This is the endpoint to get the details of all customers.
     @GetMapping(value = "getall")
     public ResponseEntity<List<Customer>> getall(){
         List<Customer> customers = customerService.Findall();
@@ -33,12 +34,15 @@ public class Customer_Controller {
         return ResponseEntity.ok(customers);
     }
 
-    //This method is to validate the customer to provide OTP generation which is not done till now.
+    //This method is to validate the customer to exist in the database.Used while the first step of sign in
+    //we provide the Customer Id and name to verify the customer.
     @PostMapping("validation")
     public ResponseEntity<String> customerValidation(@RequestBody Customer customer){
         return customerService.customerValidation(customer);
     }
 
+    //This API is used to send back the values which will be placed statically in the front end
+    //In order to prevent duplication of data.
     @PostMapping("values")
     public ResponseEntity<Customer> fronEndValueSet(@RequestBody Customer customer){
         return customerService.setFrontValues(customer);
@@ -49,18 +53,19 @@ public class Customer_Controller {
 //        return customerService.getPlans(login);
 //    }
 
+    //This API is to get the Router plans offered to a customer.
+    //customer ID is a path variable here and we get the contents for plan cards here
     @GetMapping("{customerId}/routerPlans")
     public ResponseEntity<List<RouterPlan>> getCustomerWithRouter(@PathVariable String customerId) {
         return customerService.getCustomerWithRouterPlans(customerId);
     }
 
+    //This API is to get the Sim Cards offered to a customer.
     @GetMapping("{customerId}/simCard")
     public ResponseEntity<List<SimCard>> getCustomerWithSimCard(@PathVariable String customerId) {
         return customerService.getCustomerWithSimCard(customerId);
     }
 
-//    @GetMapping("{customerId}/SimcardWithPlans")
-//    public ResponseEntity<>
 
 
 }
