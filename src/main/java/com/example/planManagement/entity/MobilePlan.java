@@ -27,8 +27,8 @@ public class MobilePlan {
     @Property("duration")
     private Integer duration;
 
-    @Property("PlanType")
-    private String PlanType;
+    @Property("planType")
+    private String planType;
 
     @Property("voiceCallDetails")
     private String voiceCallDetails;

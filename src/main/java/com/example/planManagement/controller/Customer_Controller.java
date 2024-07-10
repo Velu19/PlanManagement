@@ -1,6 +1,8 @@
 package com.example.planManagement.controller;
 
 import com.example.planManagement.dto.Login;
+import com.example.planManagement.dto.SimCardWithPlans;
+import com.example.planManagement.entity.Router;
 import com.example.planManagement.entity.RouterPlan;
 import com.example.planManagement.entity.SimCard;
 import com.example.planManagement.service.CustomerService;
@@ -48,11 +50,6 @@ public class Customer_Controller {
         return customerService.setFrontValues(customer);
     }
 
-//    @PostMapping("getRouterPlans")
-//    public ResponseEntity<List<RouterPlan>> getPlans(@RequestBody Login login){
-//        return customerService.getPlans(login);
-//    }
-
     //This API is to get the Router plans offered to a customer.
     //customer ID is a path variable here and we get the contents for plan cards here
     @GetMapping("{customerId}/routerPlans")
@@ -64,6 +61,16 @@ public class Customer_Controller {
     @GetMapping("{customerId}/simCard")
     public ResponseEntity<List<SimCard>> getCustomerWithSimCard(@PathVariable String customerId) {
         return customerService.getCustomerWithSimCard(customerId);
+    }
+
+    @GetMapping("{customerId}/simWithPlans")
+    public ResponseEntity<List<SimCardWithPlans>> getCustomerSimCardWPlans(@PathVariable String customerId) {
+        return customerService.getSimcardWithPlans(customerId);
+    }
+
+    @GetMapping("{uniqueID}/getRouter")
+    public ResponseEntity<Router>  getRouterDetails(@PathVariable Integer uniqueID){
+        return customerService.getRouterForPlan(uniqueID);
     }
 
 

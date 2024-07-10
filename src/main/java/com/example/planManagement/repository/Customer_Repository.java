@@ -1,10 +1,13 @@
 package com.example.planManagement.repository;
 
+import com.example.planManagement.dto.SimCardWithPlans;
 import com.example.planManagement.entity.Customer;
+import com.example.planManagement.entity.Router;
 import com.example.planManagement.entity.RouterPlan;
 import com.example.planManagement.entity.SimCard;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,4 +39,24 @@ public interface Customer_Repository extends Neo4jRepository<Customer,String> {
             "s.simCardId as simCardId, s.networkOperator as networkOperator,s.activationDate as activationDate," +
             "s.phoneNumber as phone")
     List<SimCard> findSimCards(String customerId);
+
+
+    @Query("MATCH(n:Customer)-[:HAS_SIM_CARD]->(s:SimCard) " +
+            "MATCH(s)-[:HAS_MOBILE_PLAN]->(m:MobilePlan) " +
+            "WHERE n.customerId = $customerId " +
+            "return s.simType as simType, s.phoneNumber as phone, s.networkOperator as networkOperator, s.simCardId as simCardId, s.activationDate as activationDate, " +
+            "m.duration as duration, m.planType as planType , m.voiceCallDetails as voiceCallDetails, m.price as price, " +
+            "m.planName as planName, m.dataAllowance as dataAllowance, m.planId as planId, m.serviceTrue as serviceTrue, m.startDate as startDate"
+            )
+    List<SimCardWithPlans> findSimWithPlans(String customerId);
+
+
+    @Query("MATCH(n:Plan)\n" +
+            "where n.uniqueID = 14\n" +
+            "MATCH(n)-[:USES_ROUTER]->(r:Router)\n" +
+            "return r.serialNumber as serialNumber,r.routerId as routerId, r.model as model,r.firmwareVersion as firmwareVersion")
+    Router getRouterForPlan(Integer uniqueID);
+
+
+
 }

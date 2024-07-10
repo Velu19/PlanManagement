@@ -22,7 +22,7 @@ public class SimCardWithPlans {
 
     private Integer duration;
 
-    private String PlanType;
+    private String planType;
 
     private String voiceCallDetails;
 

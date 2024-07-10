@@ -13,7 +13,7 @@ public class UserController {
     private final UserService userService;
 
     public UserController(UserService userService){
-        this.userService= userService;
+        this.userService = userService;
     }
 
     //This API is used to save the user after completing the entering of details
