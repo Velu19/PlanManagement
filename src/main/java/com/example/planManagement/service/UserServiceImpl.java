@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService{
         if(check.isPresent()){
             Users exist = check.get();
             if(exist.getPassword().equals(loginrequest.getPassword())){
-                return ResponseEntity.ok(customerRepository.findByPhoneNumberOrEmail(loginrequest.getEmail()).get().getId());
+                return ResponseEntity.ok("Successful Login");
             }
             else {
                 return (ResponseEntity<String>) ResponseEntity.ok("password does not match");
@@ -60,6 +60,15 @@ public class UserServiceImpl implements UserService{
         }
 
         return  ResponseEntity.noContent().build();
+    }
+
+    @Override
+    public ResponseEntity<String> getCustomerId(Login loginrequest) {
+        Optional<Customer> check = customerRepository.findByPhoneNumberOrEmail(loginrequest.getEmail());
+        if (check.isPresent()){
+            return ResponseEntity.ok(check.get().getId());
+        }
+        return ResponseEntity.noContent().build();
     }
 
 

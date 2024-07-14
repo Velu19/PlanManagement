@@ -36,6 +36,11 @@ public class UserController {
         return userService.login(loginrequest);
     }
 
+    @PostMapping("Login/customerId")
+    public ResponseEntity<String> getCustomerId(@RequestBody Login loginrequest){
+        return userService.getCustomerId(loginrequest);
+    }
+
     @GetMapping(value ="/profile/{customerId}")
     public ResponseEntity<Customer> getProfile(@PathVariable String customerId){
         return userService.getProfile(customerId);

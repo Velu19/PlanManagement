@@ -12,4 +12,6 @@ public interface UserService {
     ResponseEntity<String> login(Login loginrequest);
 
     ResponseEntity<Customer> getProfile(String customerId);
+
+    ResponseEntity<String> getCustomerId(Login loginrequest);
 }
