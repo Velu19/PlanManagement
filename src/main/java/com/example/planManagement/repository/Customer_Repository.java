@@ -43,10 +43,12 @@ public interface Customer_Repository extends Neo4jRepository<Customer,String> {
 
     @Query("MATCH(n:Customer)-[:HAS_SIM_CARD]->(s:SimCard) " +
             "MATCH(s)-[:HAS_MOBILE_PLAN]->(m:MobilePlan) " +
+            "MATCH(m)-[:GENERATES_DATA_USAGE]->(d:DataUsage) " +
             "WHERE n.customerId = $customerId " +
             "return s.simType as simType, s.phoneNumber as phone, s.networkOperator as networkOperator, s.simCardId as simCardId, s.activationDate as activationDate, " +
-            "m.duration as duration, m.planType as planType , m.voiceCallDetails as voiceCallDetails, m.price as price, " +
-            "m.planName as planName, m.dataAllowance as dataAllowance, m.planId as planId, m.serviceTrue as serviceTrue, m.startDate as startDate"
+            "m.duration as duration, m.voiceCallDetails as voiceCallDetails, m.price as price, " +
+            "m.planName as planName, m.dataAllowance as dataAllowance, m.planId as planId, m.serviceTrue as serviceTrue, m.startDate as startDate, " +
+            "d.dataLimit as dataLimit, d.dataUsed as dataUsed"
             )
     List<SimCardWithPlans> findSimWithPlans(String customerId);
 

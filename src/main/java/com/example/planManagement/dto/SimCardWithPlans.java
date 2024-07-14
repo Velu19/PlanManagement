@@ -1,7 +1,6 @@
 package com.example.planManagement.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -32,10 +31,12 @@ public class SimCardWithPlans {
 
     private String dataAllowance;
 
-    private String planId;
-
     private boolean serviceTrue;
 
     private String startDate;
+
+    private String dataLimit;
+
+    private Double dataUsed;
 
 }

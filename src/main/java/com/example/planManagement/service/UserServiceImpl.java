@@ -1,6 +1,7 @@
 package com.example.planManagement.service;
 
 import com.example.planManagement.dto.Login;
+import com.example.planManagement.entity.Customer;
 import com.example.planManagement.entity.Users;
 import com.example.planManagement.repository.Customer_Repository;
 import com.example.planManagement.repository.UserRepository;
@@ -40,6 +41,25 @@ public class UserServiceImpl implements UserService{
         else {
                 return (ResponseEntity<String>) ResponseEntity.ok("phone/email does not exist");
         }
+    }
+
+    @Override
+    public ResponseEntity<Customer> getProfile(String customerId) {
+        String phone = customerRepository.findById(customerId).get().getPhoneNumber();
+        Optional<Users> check = userRepository.findByPhoneNumber(phone);
+        if(check.isPresent()){
+            Users exist = check.get();
+           return ResponseEntity.ok(
+                   Customer.builder()
+                   .name(exist.getName())
+                   .phoneNumber(exist.getPhoneNumber())
+                   .email(exist.getPhoneNumber())
+                   .id(customerId)
+                   .build()
+           );
+        }
+
+        return  ResponseEntity.noContent().build();
     }
 
 

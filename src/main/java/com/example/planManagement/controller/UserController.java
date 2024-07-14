@@ -1,10 +1,14 @@
 package com.example.planManagement.controller;
 
 import com.example.planManagement.dto.Login;
+import com.example.planManagement.entity.Customer;
+import com.example.planManagement.entity.SimCard;
 import com.example.planManagement.entity.Users;
 import com.example.planManagement.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/")
@@ -30,6 +34,11 @@ public class UserController {
     @PostMapping("Login")
     public ResponseEntity<String> login(@RequestBody Login loginrequest){
         return userService.login(loginrequest);
+    }
+
+    @GetMapping(value ="/profile/{customerId}")
+    public ResponseEntity<Customer> getProfile(@PathVariable String customerId){
+        return userService.getProfile(customerId);
     }
 
 }
