@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService{
                    Customer.builder()
                    .name(exist.getName())
                    .phoneNumber(exist.getPhoneNumber())
-                   .email(exist.getPhoneNumber())
+                   .email(exist.getEmail())
                    .id(customerId)
                    .build()
            );
